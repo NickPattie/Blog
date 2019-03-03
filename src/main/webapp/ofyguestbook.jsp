@@ -123,8 +123,11 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
         <%
 
         for (Greeting greeting : greetings) {
-
-            pageContext.setAttribute("greeting_content", greeting.getContent());
+			
+        	pageContext.setAttribute("title", greeting.getTitle());
+        	
+        	pageContext.setAttribute("greeting_content", greeting.getContent());
+            
 
            							
 
@@ -150,7 +153,7 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
             }
 
             %>
-
+			<blockquote>${fn:escapeXml(title)}</blockquote>
             <blockquote>${fn:escapeXml(greeting_content)}</blockquote>
 
             <%
@@ -165,9 +168,11 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
 
     <form action="/ofysign" method="post">
 
+	  <div><textarea name="title" rows="1" cols="60"></textarea></div>
+
       <div><textarea name="content" rows="3" cols="60"></textarea></div>
 
-      <div><input type="submit" value="Post Greeting" /></div>
+      <div><input type="submit" value="Post Blog" /></div>
 
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
 
