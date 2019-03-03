@@ -78,7 +78,7 @@
 
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 
-to include your name with greetings you post.</p>
+to include post a blog.</p>
 
 <%
 
@@ -165,11 +165,17 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
 %>
 
  
+ 
+<% if(user != null) { 
+	%>
 
+	<div><p>Write a New Blog Post</p></div>
     <form action="/ofysign" method="post">
 
+	  <div><p>Title</p></div>
 	  <div><textarea name="title" rows="1" cols="60"></textarea></div>
 
+      <div><p>Post</p></div>
       <div><textarea name="content" rows="3" cols="60"></textarea></div>
 
       <div><input type="submit" value="Post Blog" /></div>
@@ -177,7 +183,7 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
 
     </form>
-
+   <% } %>
  
 
   </body>
