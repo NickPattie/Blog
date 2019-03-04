@@ -27,7 +27,9 @@
         <url-pattern>/sign</url-pattern>
 
     </servlet-mapping>
-         
+    
+   
+
          
           <servlet>
                   <servlet-name>ofysign</servlet-name>
@@ -41,7 +43,27 @@
         <url-pattern>/ofysign</url-pattern>
 
     </servlet-mapping>
+    
+          <servlet>
+                  <servlet-name>allposts</servlet-name>
+                  <servlet-class>guestbook.GuestbookGetAllPosts</servlet-class>
+		  </servlet>
+    <servlet-mapping>
+        <servlet-name>allposts</servlet-name>
+        <url-pattern>/allposts</url-pattern>
+    </servlet-mapping>
          
+         <servlet>
+                  <servlet-name>someposts</servlet-name>
+                  <servlet-class>guestbook.GuestbookGetSomePosts</servlet-class>
+		  </servlet>
+    <servlet-mapping>
+        <servlet-name>someposts</servlet-name>
+        <url-pattern>/someposts</url-pattern>
+    </servlet-mapping>
+         
+         
+
          
          
   <welcome-file-list>

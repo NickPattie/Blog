@@ -153,8 +153,6 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
 
 %>
 
- 
-
     <form action="/sign" method="post">
 
       <div><textarea name="content" rows="3" cols="60"></textarea></div>

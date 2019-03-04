@@ -1,29 +1,18 @@
+//https://tutorial5-231419.appspot.com/ofyguestbook.jsp
+
 package guestbook;
 
 
-import com.google.appengine.api.datastore.DatastoreService;
-
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-
-import com.google.appengine.api.datastore.Entity;
-
-import com.google.appengine.api.datastore.Key;
-
-import com.google.appengine.api.datastore.KeyFactory;
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import com.google.appengine.api.users.User;
 
 import com.google.appengine.api.users.UserService;
 
 import com.google.appengine.api.users.UserServiceFactory;
-
- 
+import com.googlecode.objectify.ObjectifyService;
 
 import java.io.IOException;
-
-import java.util.Date;
-
- 
 
 import javax.servlet.http.HttpServlet;
 
@@ -33,7 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 
  
 
-public class SignGuestbookServlet extends HttpServlet {
+public class GuestbookGetAllPosts extends HttpServlet {
+	
+	static {
+		ObjectifyService.register(Greeting.class);		
+		
+	}
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
 
@@ -57,28 +51,15 @@ public class SignGuestbookServlet extends HttpServlet {
 
         String guestbookName = req.getParameter("guestbookName");
 
-        Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
-
         String content = req.getParameter("content");
+        
+        String title = req.getParameter("title");
+        
+        Greeting greeting = new Greeting(user, content, guestbookName, title);
+        
+        ofy().save().entity(greeting).now();     
 
-        Date date = new Date();
-
-        Entity greeting = new Entity("Greeting", guestbookKey);
-
-        greeting.setProperty("user", user);
-
-        greeting.setProperty("date", date);
-
-        greeting.setProperty("content", content);
- 
-
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
-        datastore.put(greeting);
-
- 
-
-        resp.sendRedirect("/guestbook.jsp?guestbookName=" + guestbookName);
+        resp.sendRedirect("/showall.jsp?guestbookName=" + guestbookName);
 
     }
 

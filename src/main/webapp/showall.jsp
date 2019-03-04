@@ -121,10 +121,8 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
         <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
 
         <%
-        for (int i = 0; i < 5; i++ ) {
-        	Greeting greeting = greetings.get(i);
+        for (Greeting greeting : greetings) {
         	pageContext.setAttribute("title", greeting.getTitle());
-        	
             pageContext.setAttribute("greeting_content", greeting.getContent());
 
            							
@@ -161,15 +159,16 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
     }
 
 %>
- 
+    
+    <form action="/someposts" method="post">
 
-    <form action="/allposts" method="post">
-
-      <div><input type="submit" value="See all posts." /></div>
+      <div><input type="submit" value="See most recent posts." /></div>
 
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
 
     </form>
+ 
+    
  
     <% if(user != null) {
     %>
@@ -190,7 +189,6 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
    </form>
   <% } %>
 
- 
 
   </body>
 
