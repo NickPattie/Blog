@@ -108,19 +108,10 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
 
     if (greetings.isEmpty()) {
 
-        %>
-
-        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
-
-        <%
+       
 
     } else {
 
-        %>
-
-        <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
-
-        <%
         for (int i = 0; i < 5; i++ ) {
         	Greeting greeting = greetings.get(i);
         	pageContext.setAttribute("title", greeting.getTitle());

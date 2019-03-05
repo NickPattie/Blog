@@ -64,9 +64,18 @@
 
 %>
 
+
+
 <p>Hello, ${fn:escapeXml(user.nickname)}! (You can
 
 <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
+
+    <form action="/someposts" method="post">
+
+      <div><input type="submit" value="Back." /></div>
+      <input type="hidden" name="guestbookName" value="default"/>
+
+    </form>
 
 <%
 
@@ -108,19 +117,11 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
 
     if (greetings.isEmpty()) {
 
-        %>
-
-        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
-
-        <%
+       
 
     } else {
 
-        %>
-
-        <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
-
-        <%
+        
         for (Greeting greeting : greetings) {
         	pageContext.setAttribute("title", greeting.getTitle());
             pageContext.setAttribute("greeting_content", greeting.getContent());
@@ -160,34 +161,9 @@ Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDire
 
 %>
     
-    <form action="/someposts" method="post">
-
-      <div><input type="submit" value="See most recent posts." /></div>
-
-      <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
-
-    </form>
- 
     
  
-    <% if(user != null) {
-    %>
-
-    <div><p>Write a New Blog Post</p></div>
-   <form action="/ofysign" method="post">
-
-      <div><p>Title</p></div>
-      <div><textarea name="title" rows="1" cols="60"></textarea></div>
-
-     <div><p>Post</p></div>
-     <div><textarea name="content" rows="3" cols="60"></textarea></div>
-
-     <div><input type="submit" value="Post Blog" /></div>
-
-     <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
-
-   </form>
-  <% } %>
+    
 
 
   </body>
